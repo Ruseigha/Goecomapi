@@ -1,0 +1,24 @@
+# Binaries
+/bin/
+*.exe
+*.out
+
+# Environment variables
+.env
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Test coverage
+coverage.out
+
+# Swagger generated files (optional)
+docs/swagger.json
+docs/swagger.yaml
