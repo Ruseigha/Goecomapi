@@ -38,3 +38,22 @@ func NewMongo(ctx context.Context, uri, dbName string, logger *zap.Logger) (*Mon
 
 	return &MongoDB{Client: client, Database: db}, nil
 }
+
+// Close gracefully to disconnect
+func (m *MongoDB) Close(ctx context.Context, logger *zap.Logger) error {
+	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
+	defer cancel()
+
+	if err := m.Client.Disconnect(ctx); err != nil {
+		logger.Error("Mongodb disconnect failed", zap.Error(err))
+		return err
+	}
+
+	logger.Info("Mongodb diconnected")
+	return nil
+}
+
+// Helper function to get collections
+func (m *MongoDB) Collection(name string) *mongo.Collection {
+	return m.Database.Collection(name)
+}
