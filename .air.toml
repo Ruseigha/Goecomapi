@@ -1,0 +1,67 @@
+# Air configuration file for ecommerce-api
+root = "."
+testdata_dir = "testdata"
+tmp_dir = "tmp"
+
+[build]
+  args_bin = []
+  bin = "./tmp/main.exe"
+  cmd = "go build -o ./tmp/main.exe ./cmd/api"
+  delay = 1000
+  exclude = [
+    "testdata/**",
+    "vendor/**",
+    "**/*_test.go",
+    ".git/**",
+    ".github/**",
+    ".idea/**",
+    ".vscode/**",
+    "tmp/**",
+    "*.mod",
+    "*.sum",
+  ]
+  exclude_dir = [
+    "assets",
+    "tmp",
+    "vendor",
+    ".git",
+    ".github",
+    ".idea",
+    ".vscode",
+    "testdata",
+    "node_modules",
+  ]
+  exclude_file = []
+  exclude_regex = ["_test.go"]
+  exclude_unchanged = false
+  full_bin = ""
+  include = []
+  include_dir = ["cmd", "internal", "pkg"]
+  include_ext = ["go", "tpl", "tmpl", "html", "yaml", "yml", "json"]
+  include_file = []
+  kill_delay = "0s"
+  log = "build-errors.log"
+  poll = false
+  poll_interval = 0
+  rerun = false
+  rerun_delay = 500
+  send_interrupt = false
+  stop_on_error = false
+
+[color]
+  app = ""
+  build = "yellow"
+  main = "magenta"
+  runner = "green"
+  watcher = "cyan"
+
+[log]
+  main_only = false
+  time = false
+
+[misc]
+  clean_on_exit = false
+
+[screen]
+  clear_on_rebuild = false
+  keep_scroll = true
