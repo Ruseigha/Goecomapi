@@ -59,3 +59,55 @@ func (h *ProductHandler) List(w http.ResponseWriter, r *http.Request) {
 		"items": products, "total": total, "page": page, "limit": limit,
 	}})
 }
+
+// UPDATE PRODUCT
+func (h *ProductHandler) Update(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	var p domain.Product
+	if err := json.NewDecoder(r.Body).Decode(&p); err != nil {
+		response.JSON(w, http.StatusBadRequest, response.APIResponse{
+			Status: "error",
+			Error:  "invalid request body",
+		})
+		return
+	}
+
+	// Ensure path ID is authoritative
+	p.ID = id
+
+	if err := h.svc.Update(ctx, &p); err != nil {
+		response.JSON(w, http.StatusInternalServerError, response.APIResponse{
+			Status: "error",
+			Error:  err.Error(),
+		})
+		return
+	}
+
+	response.JSON(w, http.StatusOK, response.APIResponse{
+		Status: "success",
+		Data:   p,
+	})
+}
+
+// DELETE PRODUCT
+func (h *ProductHandler) Delete(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	if err := h.svc.Delete(ctx, id); err != nil {
+		response.JSON(w, http.StatusInternalServerError, response.APIResponse{
+			Status: "error",
+			Error:  err.Error(),
+		})
+		return
+	}
+
+	response.JSON(w, http.StatusOK, response.APIResponse{
+		Status: "success",
+		Data:   "product deleted successfully",
+	})
+}
