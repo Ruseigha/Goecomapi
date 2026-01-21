@@ -9,6 +9,9 @@ build:
 run:
 	go run ./cmd/api
 
+dev:
+	air -c .air.toml
+
 test:
 	go test ./... -v
 

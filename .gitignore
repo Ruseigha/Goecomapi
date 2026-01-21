@@ -3,6 +3,10 @@
 *.exe
 *.out
 
+# Air live reload
+/tmp/
+build-errors.log
+
 # Environment variables
 .env
 
