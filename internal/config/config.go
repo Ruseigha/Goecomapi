@@ -32,7 +32,7 @@ func Load() (*Config, error) {
 
 	cfg := &Config{
 		Port:             port,
-		MongoURI:         os.ExpandEnv("MONGODB_URI"),
+		MongoURI:         os.Getenv("MONGODB_URI"),
 		MongoDBName:      os.Getenv("MONGO_DB"),
 		JWTSecret:        os.Getenv("JWT_SECRET"),
 		JWTExpiryMinutes: jwtExpiry,
